@@ -6,9 +6,13 @@
 *.ist
 *.fls
 *.synctex.gz
+*.synctex(busy)
 
 # Backup files
 *.bak
 
 # Log files
 *.log
+
+# Bulk data for copy and paste
+copypasta.txt
