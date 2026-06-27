@@ -1,0 +1,14 @@
+# Latex temporary files
+*.aux
+*.fdb_latexmk
+*.glo
+*.out
+*.ist
+*.fls
+*.synctex.gz
+
+# Backup files
+*.bak
+
+# Log files
+*.log

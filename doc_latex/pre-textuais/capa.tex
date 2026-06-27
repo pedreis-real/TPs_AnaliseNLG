@@ -1,0 +1,55 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           CAPA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% ALTERAR %%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\universidade}{Universidade Federal de Minas Gerais}
+\newcommand{\faculdade}{Programa de Pós-Graduação em Engenharia de Estrutuas}
+\newcommand{\depto}{}
+\newcommand{\curso}{}
+\newcommand{\disciplina}{EES847 - Análise não-linear geométrico de estruturas reticuladas}
+\newcommand{\autor}{Pedro Henrique Reis da Silva Lima}
+\newcommand{\titulo}{Trabalhos Práticos da Disciplina de Análise Não-Linear Geométrico de
+Estruturas Reticuladas}
+                     % | colocar ": " iniciando o subtítulo, caso houver
+                     % v
+\newcommand{\subtitulo}{}
+\newcommand{\local}{Belo Horizonte}
+\newcommand{\ano}{\the\year{}}
+%%%%%%%%%%%%%%%%%%%%%%% NÃO ALTERAR %%%%%%%%%%%%%%%%%%%%%%%
+\hspace{-1.5cm}
+\begin{minipage}[t][][c]{\textwidth}
+    % Logotipo da Universidade - 
+    % - largura da imagem - largura da caixa - comentar para remover
+    \includeunivlogo{arquivos/brasao_ufmg.eps}{2.5cm}{2.5cm}
+    %    
+    \centering{
+    \begin{minipage}{10cm}
+        \centering
+        \textbf{\MakeUppercase{\universidade}}\par      % Comentar para remover
+        \textbf{\MakeUppercase{\faculdade}}\par         % Comentar para remover
+        %\textbf{\MakeUppercase{\depto}}\par             % Comentar para remover
+        %\textbf{\MakeUppercase{\curso}}\par             % Comentar para remover
+        \textbf{\MakeUppercase{\disciplina}}            % Comentar para remover  
+    \end{minipage}}
+    %
+    % Logitipo da Unidade - largura da imagem - largura da caixa - comentar para remover
+    \includeunitlogo{arquivos/logo_propees.png}{2.5cm}{2.5cm}
+    % Segundo a Escola de Engenharia, o Brasão permanece mas deve ser usado em documentos 
+    % oficiais e solenes.
+\end{minipage}
+{
+\thispagestyle{empty}
+\centering\par
+%
+\vspace{4em}
+%
+\autor\par
+
+\vspace{15em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textbf{\large \MakeUppercase{\titulo}\linebreak\subtitulo}\par
+\vfill
+\local\par
+\ano\par
+}

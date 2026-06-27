@@ -1,0 +1,64 @@
+% ============================================== %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%			  02 Trabalho Prático 02		   %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ============================================== %
+
+\section*{Trabalho Prático 02}
+
+
+Uma barra rígida biapoiada possui apoio elástico de translação no topo. Pede-se traçar os
+gráficos de força aplicada ($P$) \textit{versus} deslocamento horizontal
+($\delta_\mathrm{H}$) e vertical ($\delta_\mathrm{V}$)  referentes ao ponto de aplicação
+da força. Adotar:
+
+$$
+\left\{\begin{array}{lcl}
+	k &=& 1\:\:\text{kN/cm} \\
+	L &=& 100\:\:\text{cm} \\
+	\Delta\theta &=& \frac{\pi}{90}\:\:\text{rad} \\
+\end{array}\right.
+$$
+
+\begin{figure}[H]
+	\centering
+	\caption{Sistema estrutural do Trabalho Prático 2.}
+	\includegraphics[
+		trim=25mm 8mm 20mm 3mm,
+		clip,
+		width=\textwidth
+	]{figuras/TPs-2.pdf}
+	\label{fig:TP2}
+\end{figure}
+
+
+% ================ Resolução TP-02 ================
+\begin{textocaixa}
+\hspace{10mm}
+
+As condições cinemáticas, relações constitutivas da mola de rigidez $k$ e o equilíbrio de
+momentos em relação ao apoio fixo A resultam na carga $P$ em função do ângulo $\theta$ dado
+na \autoref{eq:TP2-P_theta}, assumindo grandes deslocamentos.
+
+\begin{equation}
+	P = k_\text{mola}L\cos \theta
+	\label{eq:TP2-P_theta}
+\end{equation}
+
+Graficamente, essa relação não linear é expressa pelas curvas $P\times\theta$,
+$P\times \delta_v$ e $P\times \delta_h$ mostradas na \autoref{fig:TP2-result}, geradas no
+MATLAB.
+
+\begin{figure}[H]
+	\centering
+	\caption{TP1 $-$ Curvas do carregamento vertical $P$.}
+	\includegraphics[
+		width=\textwidth
+	]{figuras/no_image.png}
+	\caption*{Fonte: Autor}
+	\label{fig:TP2-result}
+\end{figure}
+
+\end{textocaixa}
