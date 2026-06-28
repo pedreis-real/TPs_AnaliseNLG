@@ -8,15 +8,84 @@
 
 \section{Trabalho Prático 06}
 
-Fazer gráficos de (1.) estiramento ($\lambda$) \textit{versus} medidas de deformação clássicas
-e (2.) estiramento \textit{versus} conjugados de tensão normalizados $\displaystyle\left(
-\frac{\sigma^*}{\sigma_B}\right)$ para $\lambda \in \left]0; 2\right]$.
+Fazer gráficos de
+
+\begin{itemize}[
+        itemindent=3em
+    ]
+    \item[a)] estiramento ($\lambda$) \textit{versus} medidas de deformação clássicas
+    ($\varepsilon^*$);
+    \item[b)] estiramento \textit{versus} conjugados de tensão normalizados
+    $\displaystyle\left(\frac{\sigma^*}{\sigma_B}\right)$;
+\end{itemize}
+
+para $\lambda \in \left]0; 2\right]$.
 
 
 % ================ Resolução TP-06 ================
 \begin{textocaixa}
 \hspace{10mm}
 
+Para a construção dos gráficos requeridos, considera-se a família de Seth-Hill das medidas de
+deformação e respectivos pares conjugados de tensão normalizados em relação à tensão de Biot
+$\sigma_B$, resumidos na \autoref{tab:TP6-seth_hill}.
+
+\begin{table}[H]
+    \centering
+    \caption{Medidas de deformação clássicas e pares conjugados
+    de tensão em função do estiramento.}
+    \label{tab:TP6-seth_hill}
+    \begin{tabular}{@{}ccc@{}}
+        \toprule
+        \textbf{Medida de deformação} &
+        $\boldsymbol{\varepsilon^*}$ &
+        $\displaystyle \left(\frac{\boldsymbol{\sigma^*}}
+                                  {\boldsymbol{\sigma_B}}\right)$ \\ [10pt]
+        \midrule
+        % m = -2
+        \underline{A}lmansi &
+        $\displaystyle \frac{1}{2}\left(1 - \frac{1}{\lambda^2}\right)$ &
+        $\lambda^3$ \\ [15pt]
+        % m = -1
+        \underline{H}iperbólica &
+        $\displaystyle 1 - \frac{1}{\lambda}$ &
+        $\lambda^2$ \\ [15pt]
+        % m = 0
+        \underline{L}ogarítmica &
+        $\ln\left(\lambda\right)$ &
+        $\lambda$ \\ [10pt]
+        % m = 1
+        \underline{B}iot &
+        $\lambda - 1$ &
+        $1$ \\ [10pt]
+        % m = 2
+        \underline{G}reen &
+        $\displaystyle \frac{1}{2}\left(\lambda^2 - 1\right)$ &
+        $\displaystyle \frac{1}{\lambda}$ \\ [10pt]
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+As curvas de medidas de deformação estão plotadas na \autoref{fig:TP6-result1}, e dos
+conjugados de tensão normalizados, na \autoref{fig:TP6-result2}.
+
+\begin{figure}[H]
+	\centering
+	\caption{TP06 $-$ Medidas clássicas de deformação em função do estiramento.}
+	\includegraphics[
+		width=\textwidth
+	]{figuras/no_image.png}
+	\label{fig:TP6-result1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{TP06 $-$ Conjugados de tensão normalizados em função do estiramento.}
+	\includegraphics[
+		width=\textwidth
+	]{figuras/no_image.png}
+	\label{fig:TP6-result2}
+\end{figure}
 
 
 

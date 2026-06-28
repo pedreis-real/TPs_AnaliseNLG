@@ -25,7 +25,7 @@ $$
 	\includegraphics[
 		trim=55mm 15mm 50mm 8mm,
 		clip,
-		width=0.73\textwidth
+		width=0.75\textwidth
 	]{figuras/TPs-1.pdf}
 	\label{fig:TP1}
 \end{figure}
@@ -34,32 +34,40 @@ $$
 % ================ Resolução TP-01 ================
 \begin{textocaixa}
 \hspace{10mm}
-O sistema estrutural da barra rígida acoplada à uma mola de torção na base, de rigidez
-$K_\text{mola}$, possui como solução condição de \underline{equilíbrio} na configuração
-deformada a expressão dada na \autoref{eq:TP1-P_theta}, para aplicação de carga $P$
-verticalmente na extremidade livre da barra, de forma conservativa.
+
+A \underline{relação constitutiva} da mola é assumida como linear, de modo que o momento
+gerado se relaciona com o ângulo de giro $\theta$ da barra a partir da \autoref{eq:TP1-const}
 
 \begin{equation}
-	P = \frac{k_\text{mola}}{L}\cdot\frac{\theta}{\sin \theta}
-	\label{eq:TP1-P_theta}
+	M = k_\text{mola}\cdot \theta
+	\label{eq:TP1-const}
 \end{equation}
 
-Como \underline{compatibilidade cinemática} do problema, associam-se os deslocamentos vertical
-($\delta_v$) e horizontal ($\delta_h$) a partir de relações trigonométricas no equilíbrio
-da configuração deformada:
+Além disso, há \underline{compatibilidade cinemática} entre os deslocamentos vertical
+($\delta_v$) e horizontal ($\delta_h$) a partir de relações trigonométricas no equilíbrio da
+configuração deformada:
 
 \begin{equation}
 	\left\{\begin{array}{lcl}
 		\delta_v &=& L\left(1 - \cos \theta\right) \\
 		\delta_h &=& L\sin \theta \\
 	\end{array}\right.
-	\label{eq:TP1-deltavh}
+	\label{eq:TP1-cinem}
 \end{equation}
 
-As fórmulas foram implementadas em Python para visualização gráfica do comportamento
-não-linear geométrico (NLG) da estrutura, de acordo com os valores dados no enunciado. Os
-gráficos $P\times\theta$, $P\times \delta_v$ e $P\times \delta_h$ são mostrados na
-\autoref{fig:TP1-result}.
+Sendo assim, o sistema estrutural da barra rígida acoplada à uma mola de torção na base possui
+como solução condição de \underline{equilíbrio} na configuração deformada a expressão dada na
+\autoref{eq:TP1-equi}, assumindo não-linearidade geométrica.
+
+\begin{equation}
+	P = \frac{k_\text{mola}}{L}\cdot\frac{\theta}{\sin \theta}
+	\label{eq:TP1-equi}
+\end{equation}
+
+Foram geradas as curvas $P\times\theta$, $P\times \delta_v$ e $P\times \delta_h$ em rotina
+numérica implementada no Python, para os dados fornecidos no enunciado, as quais são mostradas
+na \autoref{fig:TP1-result}. As linhas de código que geraram estes gráficos estão disponíveis
+no \autoref{subapendice:TP01}.
 
 \begin{figure}[H]
 	\centering
@@ -67,11 +75,24 @@ gráficos $P\times\theta$, $P\times \delta_v$ e $P\times \delta_h$ são mostrado
 	\includegraphics[
 		width=\textwidth
 	]{figuras/no_image.png}
-	\caption*{Fonte: Autor}
+	
 	\label{fig:TP1-result}
 \end{figure}
 
-As linhas de código que geraram estes gráficos estão disponíveis no
-\autoref{subapendice:TP01}.
+As curvas evidenciam o comportamento NLG do sistema reticulado, no qual, em um ponto
+específico da curva, há bifurcação do comportamento da estrutura quanto à estabilidade:
+a partir deste ponto, denominado "ponto crítico", associado a um valor de carga $P=P_{cr}$,
+a estrutura assume um comportamento estável de ganho de rigidez em proporção aos deslocamento
+vertical. O valor de $P_{cr}$, a saber, é obtido pelo limite para quando o valor do ângulo
+de giro $\theta$ tende a zero:
+
+\begin{equation}
+	P_{cr} = \lim_{\theta\:\longrightarrow\:0} \frac{k_\text{mola}}{L}
+										\cdot\frac{\theta}{\sin \theta} \Longrightarrow
+	\boxed{P_{cr} = \frac{k_\text{mola}}{L}}
+	\label{eq:TP1-P_cr}
+\end{equation}
+
+
 
 \end{textocaixa}

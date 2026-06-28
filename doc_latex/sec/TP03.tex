@@ -26,7 +26,7 @@ $$
 	\includegraphics[
 		trim=20mm 20mm 20mm 5mm,
 		clip,
-		width=\textwidth
+		width=0.9\textwidth
 	]{figuras/TPs-3.pdf}
 \end{figure}
 
@@ -35,6 +35,56 @@ $$
 \begin{textocaixa}
 \hspace{10mm}
 
+Na situação deformada, os variacionais $\delta_h$ e $\delta_v$ se relacionam com o ângulo
+$\theta$ a partir das \underline{relações cinemáticas} dadas na \autoref{eq:TP3-cinem}.
+O sistema é simétrico em relação ao ponto de conexão das barras com a mola de torção, o que
+implica na equivalência dos ângulos de giro das duas barras.
+
+\begin{equation}
+	\left\{\begin{array}{lcl}
+		\delta_h &=& L\left(1 - \cos \theta\right) \\
+		\delta_v &=& L\sin \theta \\
+	\end{array}\right.
+	\label{eq:TP3-cinem}
+\end{equation}
+
+Sendo assim, no \underline{equilíbrio}, a carga $P$ se relaciona com o valor de $\theta$
+a partir da \autoref{eq:TP3-equi}, assumindo \underline{relação constitutiva} linear da
+mola de torção (\autoref{eq:TP3-const}).
+
+\begin{equation}
+	M = k_\text{mola}\cdot \left(2\theta\right)
+	\label{eq:TP3-const}
+\end{equation}
+
+\begin{equation}
+	P = \frac{4k_\text{mola}}{L}\cdot\frac{\theta}{\cos\theta}
+	\label{eq:TP3-equi}
+\end{equation}
+
+Essa relação não-linear é expressa pelas curvas $P\times \theta$, $P\times \delta_v$ e
+$P\times \delta_h$ mostradas na \autoref{fig:TP3-result}, geradas pelo código dado em
+\autoref{subapendice:TP03}.
+
+\begin{figure}[H]
+	\centering
+	\caption{TP03 $-$ Curvas do carregamento vertical $P$.}
+	\includegraphics[
+		width=\textwidth
+	]{figuras/no_image.png}
+	
+	\label{fig:TP3-result}
+\end{figure}
+
+Algo interessante ocorre quando se calcula a carga crítica desse sistema estrutural: o
+valor dá zero, indicando se tratar de um mecanismo rotulado rígido, que não se autosustenta.
+
+\begin{equation}
+	P_{cr} = \lim_{\theta\:\longrightarrow\:0} \frac{4k_\text{mola}}{L}
+										  \cdot\frac{\theta}{\cos\theta} \Longrightarrow
+	\boxed{P_{cr} = 0}
+	\label{eq:TP3-P_cr}
+\end{equation}
 
 
 

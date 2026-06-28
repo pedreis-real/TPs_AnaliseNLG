@@ -2,12 +2,15 @@
 *.aux
 *.fdb_latexmk
 *.glo
+*.gls
 *.out
 *.ist
 *.fls
 *.synctex.gz
 *.synctex(busy)
 *.toc
+*.lof
+*.lot
 
 # Backup files
 *.bak

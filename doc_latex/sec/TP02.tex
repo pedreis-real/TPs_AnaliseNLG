@@ -16,7 +16,7 @@ da força. Adotar:
 
 $$
 \left\{\begin{array}{lcl}
-	k &=& 1\:\:\text{kN/cm} \\
+	k_\text{mola} &=& 1\:\:\text{kN/cm} \\
 	L &=& 100\:\:\text{cm} \\
 	\Delta\theta &=& \frac{\pi}{90}\:\:\text{rad} \\
 \end{array}\right.
@@ -26,7 +26,7 @@ $$
 	\centering
 	\caption{Sistema estrutural do Trabalho Prático 02.}
 	\includegraphics[
-		trim=25mm 8mm 20mm 3mm,
+		trim=25mm 8mm 2mm 3mm,
 		clip,
 		width=\textwidth
 	]{figuras/TPs-2.pdf}
@@ -38,18 +38,36 @@ $$
 \begin{textocaixa}
 \hspace{10mm}
 
-As condições cinemáticas, relações constitutivas da mola de rigidez $k$ e o equilíbrio de
-momentos em relação ao apoio fixo A resultam na carga $P$ em função do ângulo $\theta$ dado
-na \autoref{eq:TP2-P_theta}, assumindo grandes deslocamentos.
+Neste sistema estrutural, assume-se, novamente, \underline{relação constitutiva} linear da
+mola:
 
 \begin{equation}
-	P = k_\text{mola}L\cos \theta
+	F_\text{mola} = k_\text{mola}\cdot \delta_h
+	\label{eq:TP2-const}
+\end{equation}
+
+E como \underline{relações cinemáticas}, tem-se a associação entre as variações $\delta_h$
+e $\delta_v$ com o ângulo de giro $\theta$ da barra por meio da \autoref{eq:TP2-cinem}.
+
+\begin{equation}
+	\left\{\begin{array}{lcl}
+		\delta_h &=& L\sin \theta \\
+		\delta_v &=& L\left(1 - \cos\theta\right) \\
+	\end{array}\right.
+	\label{eq:TP2-cinem}
+\end{equation}
+
+Assim, o equilíbrio de momentos em relação ao apoio fixo A resultam na carga $P$ em função do
+ângulo $\theta$ dado na \autoref{eq:TP2-P_theta}, assumindo grandes deslocamentos.
+
+\begin{equation}
+	P = k_\text{mola}\,L\cdot \cos\theta
 	\label{eq:TP2-P_theta}
 \end{equation}
 
-Graficamente, essa relação não linear é expressa pelas curvas $P\times\theta$,
-$P\times \delta_v$ e $P\times \delta_h$ mostradas na \autoref{fig:TP2-result}, geradas no
-MATLAB.
+Graficamente, essa relação não-linear é expressa pelas curvas $P\times \delta_v$ e
+$P\times \delta_h$ mostradas na \autoref{fig:TP2-result}, geradas pelo código dado em
+\autoref{subapendice:TP02}.
 
 \begin{figure}[H]
 	\centering
@@ -57,8 +75,19 @@ MATLAB.
 	\includegraphics[
 		width=\textwidth
 	]{figuras/no_image.png}
-	\caption*{Fonte: Autor}
+	
 	\label{fig:TP2-result}
 \end{figure}
+
+Nesse sistema estrutural, a carga crítica se relaciona com as constantes do problema da
+seguinte forma:
+
+\begin{equation}
+	P_{cr} = \lim_{\theta\:\longrightarrow\:0} k_\text{mola}\,L\cdot \cos\theta
+	\Longrightarrow \boxed{P_{cr} = k_\text{mola}\,L}
+	\label{eq:TP2-P_cr}
+\end{equation}
+
+
 
 \end{textocaixa}

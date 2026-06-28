@@ -43,6 +43,85 @@ $$
 \begin{textocaixa}
 \hspace{10mm}
 
+A \underline{cinemática} do problema se baseia nas relações trigonométricas entre
+deslocamentos lineares na extremidade livre, horizontal ($u$) e vertical ($v$), e raio de
+curvatura da viga na configuração deformada, $\rho$, além da relação diferencial entre o
+ângulo $\theta$ e $v$, todas elas agrupadas na \autoref{eq:TP4-cinem}.
+
+\begin{bigEquation}
+	\left\{\begin{array}{lcl}
+		u &=& L - \rho\cdot \sin\theta \\
+		v &=& \rho\left(1 - \cos\theta\right) \\ [5pt]
+		\theta &=& \frac{\mathrm{d}v}{\mathrm{d}x} = v' \\
+	\end{array}\right.
+	\label{eq:TP4-cinem}
+\end{bigEquation}
+
+Da teoria de vigas de Euler-Bernoulli, o momento fletor $M$ em uma viga engastada-livre se
+relaciona com a curvatura $\rho$ a partir da \underline{relação constitutiva} dada pela
+\autoref{eq:TP4-const}.
+
+\begin{equation}
+	M = \frac{1}{\rho}\cdot EI \longrightarrow \rho = \frac{EI}{M}
+	\label{eq:TP4-const}
+\end{equation}
+
+O desenvolvimento na situação de \underline{equilíbrio} prossegue com a solução do problema
+de valor inicial que relaciona a linha neutra com o momento fletor ao longo do eixo $x$
+(longitudinal) da viga engastada-livre:
+
+\begin{bigEquation}
+	\left\{\begin{array}{lcl}
+		M(x) &=& EI\,\frac{\mathrm{d}^2v}{\mathrm{d}x^2} \\
+		v(x=0) &=& 0 \\
+		v'(x=0) &=& 0 \\
+	\end{array}
+	\right.
+	\label{eq:TP4-linha_neutra}
+\end{bigEquation}
+
+Cuja solução implica no equacionamento de $v$ e $\theta$ em função de $x$:
+
+\begin{bigEquation}
+	\left\{\begin{array}{lcl}
+		v(x) 	  &=& \frac{M}{2EI}x^2 \\ [10pt]
+		\theta(x) &=& \frac{M}{EI}x \\
+	\end{array}
+	\right.
+	\label{eq:TP4-equi}
+\end{bigEquation}
+
+As quais geram relações diretas entre o momento $M$ e rigidez à flexão $EI$ da viga quando
+substituídas na \autoref{eq:TP4-cinem}.
+
+\begin{itemize}
+	\item[a)] Os gráficos de $M\times \theta$, $M\times u$ e $M\times v$ foram gerados pelo
+	código mostrado no \autoref{subapendice:TP04}, incluídos aqui na
+	\autoref{fig:TP4-result1}.
+
+	\begin{figure}[H]
+		\centering
+		\caption{TP04 $-$ Curvas do momento fletor $M$.}
+		\includegraphics[
+			width=\textwidth
+		]{figuras/no_image.png}
+		
+		\label{fig:TP4-result1}
+	\end{figure}
+
+	\item[b)] Para $\theta = \pi$ e $\theta = 2\pi$, a linha neutra se deforma conforme
+	apresentado na \autoref{fig:TP4-result2}, dada a teoria exposta acima.
+
+	\begin{figure}[H]
+		\centering
+		\caption{TP04 $-$ Linha neutra $v(x)$ para $\theta = \pi$ e para $\theta = 2\pi$.}
+		\includegraphics[
+			width=\textwidth
+		]{figuras/no_image.png}
+		
+		\label{fig:TP4-result2}
+	\end{figure}
+\end{itemize}
 
 
 

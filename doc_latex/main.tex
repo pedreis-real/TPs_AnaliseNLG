@@ -169,6 +169,30 @@
 \include{pre-textuais/capa}
 \setcounter{page}{1}
 
+%%%%%%%%%%%%%%%%%%%%% LISTA DE ILUSTRAÇÕES %%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\begingroup
+    \makeatletter
+        \let\ps@plain\ps@empty
+    \makeatother
+    \pagestyle{empty}
+    \listoffigures
+    \cleardoublepage
+\endgroup
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%% LISTA DE TABELAS %%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\begingroup
+    \makeatletter
+        \let\ps@plain\ps@empty
+    \makeatother
+    \pagestyle{empty}
+    \listoftables
+    \cleardoublepage
+\endgroup
+\clearpage
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%% SUMÁRIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %               CONFIGURAÇÕES DE SUMÁRIO
 % Controle de espaçamento vertical

@@ -8,15 +8,151 @@
 
 \section{Trabalho Prático 07}
 
-Calcular as energias de deformação específicas para as medidas de deformação Logarítmica e
-de Green. Encontrar os valores das constantes para leis do tipo: $\sigma^* = E\varepsilon^*$
-(leis Hookeanas).
-
+\begin{enumerate}
+    \item Calcular as energias de deformação específicas para as medidas de deformação
+    Logarítmica e de Green.
+    \item Encontrar os valores das constantes para leis do tipo: $\sigma^* = E\cdot
+    \varepsilon^*$ (leis Hookeanas).
+\end{enumerate}
 
 % ================ Resolução TP-07 ================
 \begin{textocaixa}
 \hspace{10mm}
 
+A energia de deformação específica $u^*$ se relaciona com o estiramento $\lambda$ a partir
+da \autoref{eq:TP7-energia}.
+
+\begin{equation}
+    u^* = \int_{\varepsilon^*}\sigma^*\,\mathrm{d}\varepsilon^*
+        = \int_\lambda \left(\sigma^*\:\frac{\partial \varepsilon^*}
+                                            {\partial \lambda}\right)\,\mathrm{d}\lambda
+    \label{eq:TP7-energia}
+\end{equation}
+
+Em consequência, considerando lei constitutiva Hookeana para os pares de tensão-deformação,
+a expressão para o cálculo da energia de deformação específica se transforma em:
+
+\begin{equation}
+    u^* = E\:\int_\lambda \left(\varepsilon^*\:
+                                \frac{\partial \varepsilon^*}
+                                     {\partial \lambda}\right) \mathrm{d}\lambda
+    \label{eq:TP7-energia_estiramento}
+\end{equation}
+
+Ou, então, numa relação direta com a deformação $\varepsilon^*$, dada na
+\autoref{eq:TP7-energia_deform}, que será utilizada nesta resolução.
+
+\begin{equation}
+    u^* = E\:\int_{\varepsilon^*} \left(E\cdot\varepsilon^*\right)
+                                      \,\varepsilon^* \mathrm{d}\varepsilon^*
+    \longrightarrow \boxed{u^* = \frac{E}{2}\left[\varepsilon^*\left(\lambda\right)\right]^2}
+    \label{eq:TP7-energia_deform}
+\end{equation}
+
+\begin{enumerate}
+    \item \underline{Energia de deformação específica}
+
+A medida de deformação Logarítmica $\varepsilon^* = \varepsilon_L$ é expressa por:
+
+\begin{equation}
+    \varepsilon_L = \ln \lambda
+    \label{eq:TP7-eL}
+\end{equation}
+
+Implicando que a energia de deformação para a medida de deformação Logarítmica é dada por:
+
+\begin{equation}
+    \boxed{u_L = \frac{E}{2}\left(\ln\lambda\right)^2}
+    \label{eq:TP7-uL_general}
+\end{equation}
+
+Já a medida de deformação de Green se expressa na \autoref{eq:TP7-eG}, permitindo desenvolver
+a expressão para a energia de deformação específica para esta medida de deformação ($u_G$)
+na \autoref{eq:TP7-uG}.
+
+\begin{equation}
+    \varepsilon_G = \frac{1}{2}\left(\lambda^2 - 1\right)
+    \label{eq:TP7-eG}
+\end{equation}
+
+\begin{equation}
+    \Longrightarrow u_G = \frac{E}{2}\left[\frac{1}{2}\left(\lambda^2 - 1\right)\right]^2
+    \longrightarrow
+    \boxed{u_G = \frac{E\,\lambda^2}{8}\left(\lambda^2 - 2\right) + \frac{E}{8}}
+    \label{eq:TP7-uG}
+\end{equation}
+
+\item \underline{Constantes para leis do tipo Hookeanas}
+
+Os conjugados de tensão de cada medida da deformação clássica se relacionam com a tensão de
+Biot $\sigma_B$, dada na \autoref{eq:TP7-sigmaB}, a partir de expressões envolvendo o
+estiramento.
+
+\begin{equation}
+    \sigma_B = E\left(\lambda - 1\right)
+    \label{eq:TP7-sigmaB}
+\end{equation}
+
+Para as medidas de deformação Logarítmica e de Green, essas relações são mostradas na
+\autoref{eq:TP7-sigmaLGB}.
+
+\begin{bigEquation}
+    \left\{\begin{array}{lclcl}
+        \sigma_L &=& \lambda\,\sigma_B &=& 
+                     E\cdot \left(\lambda^2 - \lambda\right) \\ [10pt]
+        \sigma_G &=& \frac{1}{\lambda}\,\sigma_B &=& 
+                     E\cdot \left(1 -\frac{1}{\lambda}\right) \\
+    \end{array}\right.
+    \label{eq:TP7-sigmaLGB}
+\end{bigEquation}
+
+Além disso, considerando a constante de proporcionalidade $E_L$ para a medida de deformação
+Logarítmica e $E_G$ para a medida de deformação de Green, as leis constitutivas equivalente
+são expressas como:
+
+\begin{bigEquation}
+    \left\{\begin{array}{lclcl}
+        \sigma_L &=& E_L\cdot\varepsilon_L &=& 
+                     E_L\cdot \ln\lambda \\ [10pt]
+        \sigma_G &=& E_G\cdot\varepsilon_G &=& 
+                     E_G\cdot \frac{1}{2}\left(\lambda^2 - 1\right) \\
+    \end{array}\right.
+    \label{eq:TP7-sigmaLG_const}
+\end{bigEquation}
+
+Portanto, comparando-se a \autoref{eq:TP7-sigmaLG_const} com a \autoref{eq:TP7-sigmaLGB},
+encontram-se relações entre as constantes de proporcionalidade e o módulo de Young $E$
+referente à medida de deformação de Biot -- a qual está ligada a ensaios de caracterização
+que medem a deformação com base nas dimensões iniciais. Para a medida de deformação
+Logarítmica, tem-se, pois, que:
+
+\begin{equation}
+    \frac{E_L}{E} = \frac{\lambda^2 - \lambda}{\ln\lambda}
+    \label{eq:TP7-EL_E}
+\end{equation}
+
+Enquanto, para a medida de deformação de Green, a razão entre $E_G$ e $E$ se torna:
+
+\begin{equation}
+    \frac{E_G}{E} = \frac{2}{\lambda^2 + \lambda}
+    \label{eq:TP7-EG_E}
+\end{equation}
+
+Retomando esse resultado na \autoref{eq:TP7-sigmaLGB}, as leis constitutivas do tipo
+Hookeanas para as medidas de deformação Logarítmica e de Green são formuladas na
+\autoref{eq:TP7-sigmaL_hook} e \autoref{eq:TP7-sigmaG_hook}, respectivamente.
+
+\begin{equation}
+    \boxed{\sigma_L = \frac{\lambda^2 - \lambda}{\ln\lambda}\,E\cdot \varepsilon_L}
+    \label{eq:TP7-sigmaL_hook}
+\end{equation}
+
+\begin{equation}
+    \boxed{\sigma_G = \frac{2E}{\lambda^2 + \lambda}\cdot \varepsilon_G}
+    \label{eq:TP7-sigmaG_hook}
+\end{equation}
+
+\end{enumerate}
 
 
 
