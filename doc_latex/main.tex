@@ -12,7 +12,7 @@
 %                     ARQUIVO DE CONFIGURAÇÃO                  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %         Código produzido por Gabriel Figueiredo @ UFMG       %
-%           Versão 6.3 | Última atualização: 17/06/2025        %
+%           Versão 7.0 | Última atualização: 09/04/2026        %
 %            Se for modificar, dê os devidos créditos!         %
 %                                                              %
 %                       Disponível no link                     %
@@ -35,7 +35,18 @@
 %   NBR 10520:2023 - Citações                                  %
 %   NBR 14724:2011 - Princípios gerais de trabalhos acadêmicos %
 %                                                              %
-%%%%%%%%%%%%%%%%%%%%%&&&&&%% CHANGELOG %%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% CHANGELOG %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 7.0 - main.tex   - Comandos e configurações ABNT extraídos
+%                    para pacotes .sty na pasta estilos/
+% matematica.sty   - Adição de estilos matemáticos para tamanho
+%                    pequeno e grande das equações
+%  hipoteses.sty   - Comando \hyplist
+%   citacoes.sty   - Mudança na confguração da bibliografia,
+%                    acrescentando numeração a cada título
+%                  - \citenbr para citar apenas o número do
+%                    título na página de REFERÊNCIAS
+%  apendices.sty   - Opção de criar e referencias subapendices
+%       abnt.sty   - Adição de título nível 4: \paragraph{}
 % 6.3 - main.tex   - Adicionados comandos \caixa e \tbox
 % 6.2 - main.tex   - Corrigido \autoref para Apêndices e Anexos
 % 6.1 - main.tex   - Alterado comando de inclusão de logos
@@ -55,8 +66,16 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&&&&&%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[a4paper,12pt]{article}
-%%%%%%%%%%%%%%%%%%%%%%%% PACOTES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                   PACOTES E ESTILOS DE TEXTO                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[a4paper,
+            top=3cm,
+            bottom=2cm,
+            left=3cm,
+            right=2cm]{geometry}
 \usepackage[brazilian]{babel} 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -88,7 +107,7 @@
 \usepackage{fancyhdr}
 \usepackage{multirow}
 \usepackage{multicol}
-\usepackage[round]{natbib}
+\usepackage[square,numbers]{natbib}
 \usepackage[font=footnotesize]{caption}
 \usepackage{svg}
 \usepackage[nopostdot,style=super,nonumberlist]{glossaries}
@@ -108,396 +127,84 @@
 \usepackage{pdflscape}
 \usepackage{cancel}
 \usepackage{mathtools}
+\usepackage{listing}
 \usepackage{mdframed}
-\usepackage{fancybox}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%       NORMAS ABNT E CONFIGURAÇÕES DO DOCUMENTO
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Mais informações em 
-%   https://normas-abnt.espm.br/index.php?title=Formatação
-%   https://www.normasabnt.org/formatacao-abnt/
-%   https://fio.edu.br/manualtcc/co/1_Estrutura_do_TCC.html
+\usepackage{xstring}
+\usepackage{courier}
+\usepackage{keyval}
 
-%---------------------------------------------------------%
-% Tamanhos LaTeX:
-    % \tiny         6 pt
-    % \scriptsize   8 pt
-    % \footnotesize 10 pt
-    % \normalsize   12 pt
-    % \large        14 pt
-    % \Large        16 pt
-%---------------------------------------------------------%
-% Formato: A4
-% Tamanho do texto: 12 pt
-%---------------------------------------------------------%
-% Fonte: Times New Roman ou Arial
-%---------------------------------------------------------%
-% Margem 
-    % esquerda e superior: 3cm 
-    % direita e inferior: 2cm  
-%---------------------------------------------------------%
-% Espaçamento corpo do texto
-    % 1,5 linha
-    \onehalfspacing
-%---------------------------------------------------------%
-% Separação entre parágrafos 
-    % 1,5 linhas
-    %\parskip = 1.5 em
-%---------------------------------------------------------%
-% Espaçamento antes e depois de títulos
-    % 1,5 linhas
-    \titlespacing*{\section}{0pt}{1.5em}{1.5em}
-    \titlespacing*{\subsection}{0pt}{1.5em}{1.5em}
-    \titlespacing*{\subsubsection}{0pt}{1.5em}{1.5em}
-%---------------------------------------------------------%
-% Indentação de parágrafo 
-    % 1,25 cm
-    \setlength{\parindent}{1.25cm}
-%---------------------------------------------------------%
-% Seções (tamanho 12 pt)
-    % 1 SEÇÃO (negrito)
-    % 1.1 Subseção (negrito)
-    % 1.1.1 Subsubseção (normal)
-    % 1.1.1.1 Subsubsubseção (normal sublinhado)
-    \titleformat*{\section}{\normalsize\bfseries\MakeUppercase}
-    \titleformat*{\subsection}{\normalsize\bfseries}
-    \titleformat*{\subsubsection}{\normalsize}
-%---------------------------------------------------------%
-% Capa
-    % Instituições, local, ano.
-    % Título: Negrito, 14 pt, maiúsculo
-    % Subtítulo: Negrito, 14pt, minúsculo.
-    % Geralmente sem logos
-    % ALTERAR DADOS EM pre-textuais/capa.tex
-%---------------------------------------------------------%
-% Ficha catalográfica
-    % O retângulo deve ter  12,5 x 7,5 cm
-    % Fonte Times ou Arial 12 ou 11
-    % Espaçamento simples
-%---------------------------------------------------------%
-% Sumário
-    % "SUMÁRIO" no centro, maiúsculo, negrito.
-    \renewcommand\cfttoctitlefont{\hspace{7cm}\normalsize\bfseries\MakeUppercase}
-    \renewcommand\cftaftertoctitle{\vspace{0em}}
-    \renewcommand{\cftsecleader}{\vspace{-1.5mm}\cftdotfill{\cftdotsep}}
-    \renewcommand{\cftsecfont}{\vspace{-1.5mm}\normalfont\bfseries}
-    \renewcommand{\cftsubsecfont}{\vspace{-1.5mm}\normalfont\bfseries}
-    \renewcommand{\cftsubsubsecfont}{\vspace{-1.5mm}\normalfont}
-    \renewcommand{\cftparafont}{\hspace{-20mm}\normalfont}
-    \setcounter{tocdepth}{4}
-%---------------------------------------------------------%
-% Lista de Figuras
-    \renewcaptionname{brazilian}{\listfigurename}{Lista de Ilustrações}
-    \renewcommand{\cftloftitlefont}{\hspace{5.5cm}\normalsize\bfseries\MakeUppercase}
-    \renewcommand\cftafterloftitle{\vspace{0.5em}}
-    \setlength{\cftfigindent}{0pt}
-    \renewcommand{\cftfigpresnum}{Figura }
-    \renewcommand{\cftfigaftersnum}{ \hspace{7pt} – \hspace{7pt} }
-    \addtolength{\cftfignumwidth}{4em}
-%---------------------------------------------------------%
-% Lista de Tabelas
-    \renewcaptionname{brazilian}{\listtablename}{Lista de tabelas}
-   \renewcommand{\cftlottitlefont}{\hspace{6cm}\normalsize\bfseries\MakeUppercase}
-    \renewcommand\cftafterlottitle{\vspace{0.5em}}
-    \setlength{\cfttabindent}{0pt}
-    \renewcommand{\cfttabpresnum}{Tabela }
-    \renewcommand{\cfttabaftersnum}{ \hspace{7pt} – \hspace{7pt} }
-    \addtolength{\cfttabnumwidth}{4em}
-%---------------------------------------------------------%
-% Numeração
-    % Capa não contada
-    % Numeração aprece após o sumário
-    % Numeração a 2cm das limites direito e superior
-    % Fonte tamanho 10 pt.
-    \pagestyle{fancy}
-    \fancyhf{} 
-    \renewcommand{\headrulewidth}{0pt}
-    \rhead{\footnotesize\thepage}
-    
-    % Para impressão frente e verso
-    %\fancyhead[LE,RO]{\footnotesize\thepage} 
-%---------------------------------------------------------%
-% Figuras
-    % Legendas tamanho 10. Descrição enumerada acima, fonte abaixo.
-    %\captionsetup{font=footnotesize}
-%---------------------------------------------------------%
-% Tabelas
-    % Sem linhas verticais
-    % Linhas horizontais apenas no começo, fim e cabeçalho
-    % Legendas tamanho 10. Descrição enumerada acima, fonte abaixo.
-    
-    % Não devem figurar dados em branco:
-        % - indica dado inexistente
-        % ... indicam dado desconhecido
+%--------------------------------------------------------------%
+%       NORMAS ABNT E CONFIGURAÇÕES DO DOCUMENTO               %
+%--------------------------------------------------------------%
 
-    % Caso o autor da tabela faça parte do referencial teórico do trabalho, 
-    % faça na parte inferior da tabela uma citação 
-        % Fonte: Elaborado pelo autor, 2021.
-    % Caso não:
-        % Fonte: Nome, 2014.
-%---------------------------------------------------------% 
-% Legendas
-\setlength{\abovecaptionskip}{10pt} 
-\setlength{\belowcaptionskip}{10pt} 
-%---------------------------------------------------------% 
-% Quadros
-\newenvironment{textocaixa}{%
-    \begin{mdframed}[
-        leftmargin=0pt,
-        rightmargin=0pt,
-        innerleftmargin=10pt,
-        innerrightmargin=10pt,
-        innertopmargin=10pt,
-        innerbottommargin=10pt,
-        backgroundcolor=gray!8,
-        linecolor=black,
-        linewidth=1pt
-    ]
-}{%
-    \end{mdframed}
-}
-%---------------------------------------------------------% 
-% Lista de hipóteses
-\newcounter{hyplistgrp}
-\newcounter{hyplistitem}
-
-\newlist{hyplist}{enumerate}{3}
-
-\setlist[hyplist,1]{
-label=\textbf{H[\arabic{hyplistgrp}.\arabic*]},
-ref=H[\arabic{hyplistgrp}.\arabic*],
-leftmargin=*
-}
-
-\setlist[hyplist,2]{
-label=\textbf{H[\arabic{hyplistgrp}.\arabic{hyplisti}.\arabic*]},
-ref=H[\arabic{hyplistgrp}.\arabic{hyplisti}.\arabic*],
-leftmargin=*
-}
-
-\setlist[hyplist,3]{
-label=\textbf{H[\arabic{hyplistgrp}.\arabic{hyplisti}.\arabic{hyplistii}.\arabic*]},
-ref=H[\arabic{hyplistgrp}.\arabic{hyplisti}.\arabic{hyplistii}.\arabic*],
-leftmargin=*
-}
-%---------------------------------------------------------%
-% Citações
-%   Citação indireta: 
-        % para Cabra (2010)
-        % (Cabra, 2010) [...]
-        \renewcommand{\cite}[1]{(\citeauthor{#1}, \citeyear{#1})}
-        \renewcommand{\citealp}[2][]{\citeauthor{#2} (\citeyear{#2})}
-
-
-%   Citação Direta: 
-        % Quando a opinião do autor (a) é apresentada exatamente da mesma forma
-        % em que foi escrita.
-
-        % Menos de 3 linhas: (Fairclough, 2001, p. 51)
-        % Mais de 3 linhas: Recuo 4 cm, fonte 10 pt, espaçamento simples, com 
-        % (FAIRCLOUGH, 2001, p. 51) no final.  
-        \newcommand{\directcitation}[1]{\vspace{1.5em}
-                                        \hfill
-                                        \begin{minipage}{12cm}
-                                        \footnotesize #1
-                                        \vspace{1.5em}
-                                        \end{minipage}
-                                        }
-%---------------------------------------------------------%
-% Configuração de Bibliografia
-\apptocmd{\thebibliography}{\justifying}{}{}
-    \makeatletter
-    \renewcommand\@biblabel[1]{}
-    \makeatother
-    \renewcommand{\bibsection}{\centering\textbf{REFERÊNCIAS}}
-    \renewcommand{\bibpreamble}{\vskip 1.5em}
-\setlength{\bibhang}{0em}
-%---------------------------------------------------------%
-% Configuração de links:
-\hypersetup{
-    colorlinks=true,
-    linkcolor=black,
-    urlcolor=black, % < ---- Alterar aqui a cor dos links de sites
-    % A norma não deixa claro a cor do link, mas os exemplos são dados na cor preta.
-    citecolor=black}
-\urlstyle{same}
-%---------------------------------------------------------%
-% Formatação de paragraph:
-\setcounter{secnumdepth}{4}
-\titlespacing*{\paragraph}{0pt}{1.5em}{1.5em}
-\renewcommand{\theparagraph}{\thesubsubsection.\arabic{paragraph}}
-\titleformat{\paragraph}[block]{\normalsize}{\theparagraph}{1em}{\ul}
-%---------------------------------------------------------%
-% Comando para símbolo de link externo bonitinho
-\newcommand{\ExternalLink}{%
-    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
-        \begin{scope}[x=1ex, y=1ex]
-            \clip (-0.1,-0.1) 
-                --++ (-0, 1.2) 
-                --++ (0.6, 0) 
-                --++ (0, -0.6) 
-                --++ (0.6, 0) 
-                --++ (0, -1);
-            \path[draw, 
-                line width = 0.5, 
-                rounded corners=0.5] 
-                (0,0) rectangle (1,1);
-        \end{scope}
-        \path[draw, line width = 0.5] (0.5, 0.5) 
-            -- (1, 1);
-        \path[draw, line width = 0.5] (0.6, 1) 
-            -- (1, 1) -- (1, 0.6);
-        }
-    }
-%---------------------------------------------------------%
-% Utilização de glossaries
+%%%%%%%%%%%%%%%%%%%%%%%%% FORMATO ABNT %%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/abnt}
 % \makeglossaries
-%---------------------------------------------------------%
-% Inclusão de logotipos na capa
-\newcommand{\includeunivlogo}[3]{
-    \begin{minipage}{#3}
-            \flushleft
-            \includegraphics[width=#2,keepaspectratio=true]{#1}
-    \end{minipage}
-}
-\newcommand{\includeunitlogo}[3]{
-    \begin{minipage}{#3}
-            \flushright
-            \includegraphics[width=#2,keepaspectratio=true]{#1}
-            %\includegraphics[width=2.8cm,keepaspectratio=true]{arquivos/logo_ee.eps}
-    \end{minipage}
-}
-%---------------------------------------------------------%
-% Comando para apêndices e anexos
-\newcounter{apendice}
-\renewcommand{\theapendice}{\Alph{apendice}}
-\newcommand{\apendiceautorefname}{Apêndice}
 
-\newcommand{\apendice}[1]{
-    \phantomsection
-    \refstepcounter{apendice}
-    \section*{\centering APÊNDICE \theapendice\ - #1}
-    \addcontentsline{toc}{section}{
-        \MakeUppercase{APÊNDICE \theapendice\ - #1}
-    }
-    \justifying
-}
+%%%%%%%%%%%%%%%%%%%%%%%%%%% CITAÇÕES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/citacoes}
 
-\newcounter{subapendice}[apendice]
-\renewcommand{\thesubapendice}{\theapendice.\arabic{subapendice}}
-\newcommand{\subapendiceautorefname}{Apêndice}
+%%%%%%%%%%%%%%%%%%%%%% ELEMENTOS VISUAIS %%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/elementos}
 
-\newcommand{\subapendice}[1]{
-    \phantomsection
-    \refstepcounter{subapendice}
-    \subsection*{\thesubapendice\ - #1}
-    \addcontentsline{toc}{subsection}{
-        \hspace{1.3cm} \thesubapendice\ - #1
-    }
-    \justifying
-}
+%%%%%%%%%%%%%%%%%%% FORMATAÇÃO DE APÊNCDICES %%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/apendices}
 
-\newcounter{anexo}
-\renewcommand{\theanexo}{\Roman{anexo}}
-\newcommand{\anexoautorefname}{Anexo}
+%%%%%%%%%%%%%%%%%%%% AMBIENTES MATEMÁTICOS %%%%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/matematica}
 
-\newcommand{\anexo}[1]{
-    \phantomsection
-    \refstepcounter{anexo}
-    \section*{\centering ANEXO \theanexo\ - #1}
-    \addcontentsline{toc}{section}{
-        \MakeUppercase{ANEXO \theanexo\ - #1}
-    }
-    \justifying
-}
+%%%%%%%%%%%%%%%%%%%%%% INSRÇÃO DE CÓDIGOS %%%%%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/codigo}
 
-\newcounter{subanexo}[anexo]
-\renewcommand{\thesubanexo}{\theanexo.\arabic{subanexo}}
-\newcommand{\subanexoautorefname}{Anexo}
-
-\newcommand{\subanexo}[1]{
-    \phantomsection
-    \refstepcounter{subanexo}
-    \subsection*{\thesubanexo\ - #1}
-    \addcontentsline{toc}{subsection}{
-        \hspace{1.3cm} \thesubanexo\ - #1
-    }
-    \justifying
-}
-%---------------------------------------------------------%
-% Estilo matemático
-% \everymath{\displaystyle}
-
-% Ambiente para criação de equações com fonte de texto menor. A hierarquia das fontes,
-% da maior para a menor, é:
-% 
-% 1) \displaystyle
-% 2) \scriptstyle
-% 3) \scriptscriptstyle
-
-\newenvironment{smallEquation}{
-  \begingroup
-  \everymath{\scriptscriptstyle} % <- alterar conforme necessidade
-  \equation
-}{
-  \endequation
-  \endgroup
-}
-
-\newenvironment{bigEquation}{
-  \begingroup
-  \everymath{\displaystyle} % <- alterar conforme necessidade
-  \equation
-}{
-  \endequation
-  \endgroup
-}
-
-\newcommand{\circled}[1]{%
-  \tikz[baseline=(char.base)]{
-    \node[shape=circle,draw,inner sep=0.5pt] (char) {#1};
-  }%
-}
-%---------------------------------------------------------%
-% Numeração de Equações
-% Numera as equações por seção no formato (Seção.Equação)
-% \numberwithin{equation}{section}
-%---------------------------------------------------------%
-% Comando de caixa com título
-\newcommand{\tbox}[2]{
-\begin{center}
-\begin{tcolorbox}[colback=gray!5!white,colframe=black!75!black, title=#1]
-#2
-\end{tcolorbox}
-\end{center}
-}
-%---------------------------------------------------------%
-% Comando de caixa quadrada
-\newcommand{\caixa}[1]{%
-\par\vspace{1em}
-  \noindent\fbox{%
-    \begin{minipage}{\textwidth}
-      #1
-    \end{minipage}%
-\par\vspace{1em}
-  }%
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                   INÍCIO DO DOCUMENTO                   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      INÍCIO DO DOCUMENTO                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-%---------------------------------------------------------%
-%  AVISO: ADICIONAR % NO CÓDIGO OU DELETAR PARA REMOVER 
-%---------------------------------------------------------%
-%                 ELEMENTOS PRÉ-TEXTUAIS
-%%%%%%%%%%%%%%%%%%%%%%%%% CAPA %%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%--------------------------------------------------------------%
+%                   ELEMENTOS PRÉ-TEXTUAIS                     %
+%--------------------------------------------------------------%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CAPA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{pre-textuais/capa}
 \setcounter{page}{1}
 
-%---------------------------------------------------------%
-%                  ELEMENTOS TEXTUAIS                     %
-%---------------------------------------------------------%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% SUMÁRIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               CONFIGURAÇÕES DE SUMÁRIO
+% Controle de espaçamento vertical
+    \setlength{\cftbeforesecskip}{1.0em}
+    \setlength{\cftbeforesubsecskip}{0.5em}
+    \setlength{\cftbeforesubsubsecskip}{0.5em}
+    \setlength{\cftbeforeparaskip}{0.3em}
+    \setlength{\cftaftertoctitleskip}{1.5em}
+% Controle de espaçamento entre número
+    \setlength{\cftsecnumwidth}{1.5cm}
+    \setlength{\cftsubsecnumwidth}{1.5cm}
+    \setlength{\cftsubsubsecnumwidth}{1.5cm}
+    \setlength{\cftparanumwidth}{1.5cm}
+% Controle de indentação
+    \setlength{\cftsubsecindent}{0pt}
+    \setlength{\cftsubsubsecindent}{0pt}
+
+% Controle de pontilhado
+\renewcommand{\cftdot}{.}   % {.} para linhas pontilhadas
+                            % {} para sem linhas pontilhadas
+\cleardoublepage
+    \begingroup
+    \makeatletter
+        \let\ps@plain\ps@empty
+    \makeatother
+    \pagestyle{empty}
+    \tableofcontents
+    \cleardoublepage
+\endgroup
+\clearpage
+
+%--------------------------------------------------------------%
+%                    ELEMENTOS TEXTUAIS                        %
+%--------------------------------------------------------------%
 \sloppy
+
 \include{sec/TP01}
 \include{sec/TP02}
 \include{sec/TP03}
@@ -509,9 +216,9 @@ leftmargin=*
 \include{sec/TP09}
 \include{sec/TP10}
 
-%---------------------------------------------------------%
-%                 ELEMENTOS PÓS-TEXTUAIS                  %
-%---------------------------------------------------------%
+%--------------------------------------------------------------%
+%                   ELEMENTOS PÓS-TEXTUAIS                     %
+%--------------------------------------------------------------%
 
 %%%%%%%%%%%%%%%%%%%%%%%%% REFERENCIAS %%%%%%%%%%%%%%%%%%%%%%%%%%
 % \newpage
@@ -523,7 +230,7 @@ leftmargin=*
 %%%%%%%%%%%%%%%%%%%%%%%%%% APÊNDICES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{pos-textuais/apendiceA}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                     FIM DO DOCUMENTO                    %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       FIM DO DOCUMENTO                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
