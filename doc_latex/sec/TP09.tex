@@ -53,7 +53,7 @@ obtendo-se o valor de $c$, como detalhado na \autoref{eq:TP9-cinem}.
 Implicando no valor de estiramento dado na \autoref{eq:TP9-estiramento}.
 
 \begin{equation}
-	\boxed{\lambda = \frac{c}{c_0} = \sqrt{1 + \frac{v^2 + 2Hv}{H^2 + L^2}}}
+	\lambda = \frac{c}{c_0} = \sqrt{1 + \frac{v^2 + 2Hv}{H^2 + L^2}}
 	\label{eq:TP9-estiramento}
 \end{equation}
 
@@ -61,7 +61,7 @@ No \underline{equilíbrio}, as componentes horizontais do esforço nomal $\vv{N}
 restando apenas o equacionamento do equilíbrio na direção vertical:
 
 \begin{equation}
-	\boxed{P = 2N\cdot\frac{H + v}{c}}
+	P = 2N\cdot\frac{H + v}{c}
 	\label{eq:TP9-equi}
 \end{equation}
 
@@ -89,7 +89,7 @@ E conjugados de tensão que se relacionam do seguinte modo:
 Assim, retomando o equacionamento do equilíbrio, tem-se que:
 
 \begin{equation}
-	\boxed{N = \frac{EA_0}{c_0^3}\cdot c\,\left(v^2 + 2Hv\right)}
+	N = \frac{EA_0}{c_0^3}\cdot c\,\left(v^2 + 2Hv\right)
 	\label{eq:TP9-const}
 \end{equation}
 
@@ -122,7 +122,7 @@ Considerando o equacionamento geral do método de Newton-Raphson, a saber:
 \begin{bigEquation}
 	\left\{\begin{array}{lcl}
 		\Delta^{i+1}u &=& -\frac{g(\,^i u)}{\nabla g(\,^i u)} \\ [10pt]
-		\,^{i-1}u &=& \,^i u + \Delta^{i+1}u \\ [10pt]
+		\,^{i+1}u &=& \,^i u + \Delta^{i+1}u \\ [10pt]
 	\end{array}\right.
 	\label{eq:Newton-Raphson}
 \end{bigEquation}
@@ -132,8 +132,8 @@ a previsão inicial do deslocamento vertical vem da resposta linear obtida pelo 
 Trabalhos Virtuais (PTV):
 
 $$P - 2N\,\sin\beta_0 = 0
-\longrightarrow \boxed{N_\text{linear}
-= \frac{P}{2}\cdot\sqrt{1 + \left(\frac{L}{H}\right)^2}}$$
+\longrightarrow N_\text{linear}
+= \frac{P}{2}\cdot\sqrt{1 + \left(\frac{L}{H}\right)^2}$$
 
 $$\Longrightarrow 1\cdot v = 2\int_L \frac{\overline{N} N}{EA_0}\,\mathrm{d}x
 = 2\int_L \frac{N^2}{P\cdot EA_0}\,\mathrm{d}x
@@ -145,7 +145,8 @@ $$\Longrightarrow 1\cdot v = 2\int_L \frac{\overline{N} N}{EA_0}\,\mathrm{d}x
 	\label{eq:TP9-v_init}
 \end{equation}
 
-Como critério de convergência, considerou-se que
+O que resulta em $v_\text{linear} = 3,3900$ cm. Como critério de convergência,
+considerou-se que
 
 \begin{equation}
 	\left|\,^{i-1}v - \,^i v\right| \geq 0,001
@@ -155,7 +156,7 @@ Como critério de convergência, considerou-se que
 Implementado o método como segue no \autoref{subapendice:TP09}, resultando no valor do
 deslocamento vertical de
 
-$$\boxed{v = XX\:\:\text{cm}}$$
+$$\boxed{v = 2{,}4355\:\:\text{cm}}$$
 
 Um valor YY\% menor que a resposta linear do sistema estrutural utilizada como chute inicial.
 
