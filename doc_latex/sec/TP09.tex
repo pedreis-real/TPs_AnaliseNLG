@@ -17,9 +17,11 @@ $$
 	L   &=& 150\text{ cm} \\
 	H   &=& 10\text{ cm} \\
 	A_0 &=& 5\text{ cm}^2 \\
-	P   &=& 20\text{ kN} \\
+	P_\text{ext} &=& 20\text{ kN} \\
 \end{array}\right.
 $$
+
+Verificar o valor de deformação encontrado ao final, comparando-a com a resposta linear.
 
 \begin{figure}[H]
 	\centering
@@ -27,19 +29,135 @@ $$
 	\includegraphics[
 		trim=30mm 4mm 150mm 55mm,
 		clip,
-		width=0.6\textwidth
+		width=0.8\textwidth
 	]{figuras/TPs-9.pdf}
 \end{figure}
-
-$\longrightarrow$ Verificar a deformação final
 
 
 % ================ Resolução TP-09 ================
 \begin{textocaixa}
 \hspace{10mm}
 
+A \underline{cinemática} do problema se baseia na simples aplicação do Teorema de Pitágoras
+na configuração inicial, encontrando-se $c_0$, e na configuração deformada da treliça,
+obtendo-se o valor de $c$, como detalhado na \autoref{eq:TP9-cinem}.
 
+\begin{equation}
+	\left\{\begin{array}{lcl}
+		c_0 &=& \sqrt{H^2 + L^2} \\ [5pt]
+		c   &=& \sqrt{\left(H + v\right)^2 + L^2} \\
+	\end{array}\right.
+	\label{eq:TP9-cinem}
+\end{equation}
 
+Implicando no valor de estiramento dado na \autoref{eq:TP9-estiramento}.
+
+\begin{equation}
+	\boxed{\lambda = \frac{c}{c_0} = \sqrt{1 + \frac{v^2 + 2Hv}{H^2 + L^2}}}
+	\label{eq:TP9-estiramento}
+\end{equation}
+
+No \underline{equilíbrio}, as componentes horizontais do esforço nomal $\vv{N}$ se anulam,
+restando apenas o equacionamento do equilíbrio na direção vertical:
+
+\begin{equation}
+	\boxed{P = 2N\cdot\frac{H + v}{c}}
+	\label{eq:TP9-equi}
+\end{equation}
+
+Em seguida, considerando \underline{lei constitutiva} de Saint-Venant-Kirchhoff (medida de
+deformação de Green), tem-se o seguinte equacionamento:
+
+$$\varepsilon_G = \frac{1}{2}\left(\lambda^2 - 1\right) =
+\left[\left(\frac{c}{c_0}\right)^2 - 1\right]$$
+
+\begin{equation}
+	\varepsilon_G = \frac{1}{c_0^2}\cdot\left(v^2 + 2Hv\right)
+	\label{eq:TP9-eG}
+\end{equation}
+
+E conjugados de tensão que se relacionam do seguinte modo:
+
+\begin{bigEquation}
+	\left\{\begin{array}{lcl}
+		\sigma_G &=& \frac{1}{\lambda}\sigma_B = E_G\cdot \varepsilon_G \\ [10pt]
+		\sigma_B &=& \frac{N}{A_0} \\
+	\end{array}\right.
+	\label{eq:TP9-SVK}
+\end{bigEquation}
+
+Assim, retomando o equacionamento do equilíbrio, tem-se que:
+
+\begin{equation}
+	\boxed{N = \frac{EA_0}{c_0^3}\cdot c\,\left(v^2 + 2Hv\right)}
+	\label{eq:TP9-const}
+\end{equation}
+
+Agora, resolvendo-se o problema não-linear a partir do método de Newton-Raphson, é possível
+obter uma expressão direta para \underline{vetor de resíduos} $g$ em função do deslocamento
+vertical $v$, uma vez que a carga $P$ aplicada em cada passo iterativo e o carregamento
+$P_\text{ext}$ imposto ao nó central da treliça, devem ser equivalentes no equilíbrio:
+
+$$g = P - P_\text{ext}$$
+$$g = 2N\cdot\frac{H + v}{c} - P_\text{ext}$$
+$$g = \frac{2(H + v)}{\cancel{c}}\cdot \frac{EA_0}{c_0^3}\cdot
+                      \cancel{c}\,\left(v^2 + 2Hv\right)
+	- P_\text{ext}$$
+
+\begin{equation}
+	\boxed{g = \frac{EA_0}{c_0^3}\left(v^3 + 3H\,v^2 + 2H^2\,v\right) - P_\text{ext}}
+	\label{eq:TP9-residuo}
+\end{equation}
+
+O \underline{gradiente} desse vetor de resíduos é então expresso na \autoref{eq:TP9-grad},
+necessário para o procedimento numérico do método de Newton-Raphson.
+
+\begin{equation}
+	\boxed{\nabla g = \frac{EA_0}{c_0^3}\cdot \left(3v^2 + 6H\,v + 2H^2\right)}
+	\label{eq:TP9-grad}
+\end{equation}
+
+Considerando o equacionamento geral do método de Newton-Raphson, a saber:
+
+\begin{bigEquation}
+	\left\{\begin{array}{lcl}
+		\Delta^{i+1}u &=& -\frac{g(\,^i u)}{\nabla g(\,^i u)} \\ [10pt]
+		\,^{i-1}u &=& \,^i u + \Delta^{i+1}u \\ [10pt]
+	\end{array}\right.
+	\label{eq:Newton-Raphson}
+\end{bigEquation}
+
+Precisa de uma previsão inicial como primeira abordagem da solução. No caso desta treliça,
+a previsão inicial do deslocamento vertical vem da resposta linear obtida pelo Princípio dos
+Trabalhos Virtuais (PTV):
+
+$$P - 2N\,\sin\beta_0 = 0
+\longrightarrow \boxed{N_\text{linear}
+= \frac{P}{2}\cdot\sqrt{1 + \left(\frac{L}{H}\right)^2}}$$
+
+$$\Longrightarrow 1\cdot v = 2\int_L \frac{\overline{N} N}{EA_0}\,\mathrm{d}x
+= 2\int_L \frac{N^2}{P\cdot EA_0}\,\mathrm{d}x
+= \frac{2L}{EA_0}\cdot \frac{N^2}{P}$$
+
+\begin{equation}
+	\therefore \boxed{\,^0 v = \frac{PL}{2EA_0}\cdot
+							   \left[1 + \left(\frac{L}{H}\right)^2\right]}
+	\label{eq:TP9-v_init}
+\end{equation}
+
+Como critério de convergência, considerou-se que
+
+\begin{equation}
+	\left|\,^{i-1}v - \,^i v\right| \geq 0,001
+	\label{eq:TP9-convergencia}
+\end{equation}
+
+Implementado o método como segue no \autoref{subapendice:TP09}, resultando no valor do
+deslocamento vertical de
+
+$$\boxed{v = XX\:\:\text{cm}}$$
+
+Um valor YY\% menor que a resposta linear do sistema estrutural utilizada como chute inicial.
 
 
 \end{textocaixa}
