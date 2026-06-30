@@ -27,5 +27,5 @@ def run_tp06(self):
     self._plotter.add_curve(lamb, 1 / lamb, label=r"Green")
     self._plotter.configure(
         r"$\lambda$", r"$\frac{\sigma^*}{\sigma_B}$", 
-        r"TP06: Tensoes Normalizadas"
+        r"TP06: Tensoes Normalizadas", legend_loc='upper center'
     )

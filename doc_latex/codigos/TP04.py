@@ -9,7 +9,7 @@ def run_tp04(self):
     u_val = l_val - rho * np.sin(theta)
     v_val = rho * (1 - np.cos(theta))
     
-    self._plotter.create_plot("TP04")
+    self._plotter.create_plot("TP04", fig=(4,6))
     self._plotter.add_curve(u_val, m_val, label=r"$u$")
     self._plotter.add_curve(v_val, m_val, label=r"$v$")
     self._plotter.add_curve(theta, m_val, label=r"$\theta$", sec_x=True, linestyle="--")

@@ -1,16 +1,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+from pathlib import Path
 
-# Cores estritamente escuras e distintas, sem vermelhos confusos
+# Cores estritamente escuras e distintas
 _GLOBAL_COLORS = [
     "#000080", # Azul Marinho
     "#008000", # Verde Escuro
     "#f58231", # Laranja Queimado
     "#911eb4", # Roxo Escuro
-    "#000000", # Preto
+    "#00002D", # Preto Azulado
     "#469990", # Cerceta / Azul Petroleo
-    "#e6194b", # Vermelho Carmesim (Unico vermelho principal)
+    "#e6194b", # Vermelho Carmesim
     "#9a6324", # Marrom
     "#808000", # Oliva
     "#1976d2", # Azul Forte
@@ -24,6 +25,12 @@ _global_color_idx = 0
 
 # Marcadores para as curvas
 _MARKERS = ["o", "s", "d", "+", "*"]
+
+# Pasta de output
+_ROOT = Path(__file__).parent
+_DOC_DIR = _ROOT / "doc_latex"
+_FIG_DIR = _DOC_DIR / "figuras"
+OUT_DIR = _FIG_DIR / "resultados"
 
 def _get_next_color():
     """Retorna a proxima cor garantindo a exclusividade no ciclo."""
@@ -85,9 +92,9 @@ class Plotter:
         self._twin_ax = None
         self._marker_idx = 0
 
-    def create_plot(self, tp_name, aspect_equal=False):
+    def create_plot(self, tp_name, aspect_equal=False, fig = None):
         """Inicializa uma nova figura com a cor de fundo solicitada."""
-        fig, ax = plt.subplots(figsize=(8, 6))
+        fig, ax = plt.subplots(figsize=(8, 6) if fig == None else fig)
         
         # Aplicando a cor de fundo requerida para a figura e o eixo
         fig.patch.set_facecolor('#f9f9f9')
@@ -102,8 +109,15 @@ class Plotter:
         self._fig_names.append(tp_name)
         return ax
 
-    def add_curve(self, x, y, label=None, sec_x=False, linestyle="-", color=None, marker=None, no_legend=False):
-        """Adiciona uma curva, permitindo sobreposicao manual de cor e marcador."""
+    def add_curve(
+        self,
+        x, y,
+        label=None,
+        sec_x=False,
+        linestyle="-", color=None, marker=None,
+        no_legend=False
+    ):
+        """Adiciona uma curva, permitindo sobreposicao de cor e marcador."""
         if self._curr_ax is None:
             return None, None
 
@@ -192,10 +206,11 @@ class Plotter:
                 filename = f"{name}-result{current_counts[name]}.pdf"
             else:
                 filename = f"{name}-result.pdf"
-                
+            
+            filepath = Path(OUT_DIR / filename).resolve()
             # Garante a manutencao da cor de fundo ao salvar o PDF
-            fig.savefig(filename, facecolor='#f9f9f9')
-            print(f"Salvo localmente: {filename}")
+            fig.savefig(filepath, facecolor='#f9f9f9')
+            print(f"Salvo localmente: {filepath}")
             
         plt.show()
 
@@ -206,22 +221,3 @@ class GeometricNonLinearAnalysis:
     def __init__(self):
         self._plotter = Plotter()
         self._helpers = _Helpers()
-    
-    def save_and_display(self):
-        """Salva todas as figuras criadas na chamada final e as exibe."""
-        self._plotter.save_all_and_show()
-
-
-if __name__ == '__main__':
-    analysis = GeometricNonLinearAnalysis()
-    
-    analysis.run_tp01()
-    analysis.run_tp02()
-    analysis.run_tp03()
-    analysis.run_tp04()
-    analysis.run_tp05()
-    analysis.run_tp06()
-    analysis.run_tp08()
-    analysis.run_tp09()
-    
-    analysis.save_and_display()

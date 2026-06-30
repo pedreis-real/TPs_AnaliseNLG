@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+from pathlib import Path
 
 # Cores estritamente escuras e distintas, sem vermelhos confusos
 _GLOBAL_COLORS = [
@@ -8,7 +9,7 @@ _GLOBAL_COLORS = [
     "#008000", # Verde Escuro
     "#f58231", # Laranja Queimado
     "#911eb4", # Roxo Escuro
-    "#000000", # Preto
+    "#00002D", # Preto Azulado
     "#469990", # Cerceta / Azul Petroleo
     "#e6194b", # Vermelho Carmesim (Unico vermelho principal)
     "#9a6324", # Marrom
@@ -24,6 +25,12 @@ _global_color_idx = 0
 
 # Marcadores para as curvas
 _MARKERS = ["o", "s", "d", "+", "*"]
+
+# Pasta de output
+_ROOT = Path(__file__).parent
+_DOC_DIR = _ROOT / "doc_latex"
+_FIG_DIR = _DOC_DIR / "figuras"
+OUT_DIR = _FIG_DIR / "resultados"
 
 def _get_next_color():
     """Retorna a proxima cor garantindo a exclusividade no ciclo."""
@@ -85,9 +92,9 @@ class Plotter:
         self._twin_ax = None
         self._marker_idx = 0
 
-    def create_plot(self, tp_name, aspect_equal=False):
+    def create_plot(self, tp_name, aspect_equal=False, fig = None):
         """Inicializa uma nova figura com a cor de fundo solicitada."""
-        fig, ax = plt.subplots(figsize=(8, 6))
+        fig, ax = plt.subplots(figsize=(8, 6) if fig == None else fig)
         
         # Aplicando a cor de fundo requerida para a figura e o eixo
         fig.patch.set_facecolor('#f9f9f9')
@@ -192,10 +199,11 @@ class Plotter:
                 filename = f"{name}-result{current_counts[name]}.pdf"
             else:
                 filename = f"{name}-result.pdf"
-                
+            
+            filepath = Path(OUT_DIR / filename).resolve()
             # Garante a manutencao da cor de fundo ao salvar o PDF
-            fig.savefig(filename, facecolor='#f9f9f9')
-            print(f"Salvo localmente: {filename}")
+            fig.savefig(filepath, facecolor='#f9f9f9')
+            print(f"Salvo localmente: {filepath}")
             
         plt.show()
 
@@ -279,7 +287,7 @@ class GeometricNonLinearAnalysis:
         u_val = l_val - rho * np.sin(theta)
         v_val = rho * (1 - np.cos(theta))
         
-        self._plotter.create_plot("TP04")
+        self._plotter.create_plot("TP04", fig=(4,6))
         self._plotter.add_curve(u_val, m_val, label=r"$u$")
         self._plotter.add_curve(v_val, m_val, label=r"$v$")
         self._plotter.add_curve(theta, m_val, label=r"$\theta$", sec_x=True, linestyle="--")
@@ -357,7 +365,7 @@ class GeometricNonLinearAnalysis:
         self._plotter.add_curve(lamb, 1 / lamb, label=r"Green")
         self._plotter.configure(
             r"$\lambda$", r"$\frac{\sigma^*}{\sigma_B}$", 
-            r"TP06: Tensões Normalizadas"
+            r"TP06: Tensões Normalizadas", legend_loc='upper center'
         )
 
     def run_tp08(self):
